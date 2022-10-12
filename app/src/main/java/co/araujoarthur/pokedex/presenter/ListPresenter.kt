@@ -15,8 +15,8 @@ class ListPresenter(
 
     }
 
-    override fun onSuccess(pokeItems: List<PokeItem>) {
-        view.showPokemons(pokeItems)
+    override fun onSuccess(pokeItems: PokeItem) {
+        view.showPokemons(pokeItems.result)
     }
 
     override fun onError(message: String) {
