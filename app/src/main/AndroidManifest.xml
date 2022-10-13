@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Pokedex"
         tools:targetApi="31">
         <activity
+            android:name=".PokeDescActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.ListActivity"
             android:exported="false" />
         <activity

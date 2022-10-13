@@ -1,7 +1,10 @@
 package co.araujoarthur.pokedex.view
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import co.araujoarthur.pokedex.R
 import co.araujoarthur.pokedex.model.PokeItem
 import co.araujoarthur.pokedex.model.Pokemon
@@ -18,7 +21,11 @@ class ItemList(val pokemon: Pokemon): Item<ItemList.PokemonViewHolder>() {
 
 
     override fun bind(viewHolder: PokemonViewHolder, position: Int) {
-        viewHolder.itemView.findViewById<TextView>(R.id.txt_item_list).text = pokemon.name
+
+        val button = viewHolder.itemView.findViewById<TextView>(R.id.txt_item_list)
+        button.text = pokemon.name
+
+
     }
 
     override fun getLayout() = R.layout.item_list

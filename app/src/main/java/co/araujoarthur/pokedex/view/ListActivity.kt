@@ -1,5 +1,6 @@
 package co.araujoarthur.pokedex.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import co.araujoarthur.pokedex.PokeDescActivity
 import co.araujoarthur.pokedex.R
 import co.araujoarthur.pokedex.model.PokeItem
 import co.araujoarthur.pokedex.model.Pokemon
@@ -19,7 +21,6 @@ class ListActivity : AppCompatActivity() {
     private lateinit var progressList: ProgressBar
     lateinit var presenter: ListPresenter
     private val adapter = GroupieAdapter()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,10 @@ class ListActivity : AppCompatActivity() {
 
         presenter.findPokemons()
 
+        adapter.setOnItemClickListener { item, view ->
+            val intent = Intent(this, PokeDescActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun showPokemons(pokeItems: List<Pokemon>) {
