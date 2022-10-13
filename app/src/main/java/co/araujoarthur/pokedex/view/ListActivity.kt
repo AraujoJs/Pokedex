@@ -5,13 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import co.araujoarthur.pokedex.PokeDescActivity
 import co.araujoarthur.pokedex.R
-import co.araujoarthur.pokedex.model.PokeItem
 import co.araujoarthur.pokedex.model.Pokemon
 import co.araujoarthur.pokedex.presenter.ListPresenter
 import com.xwray.groupie.GroupieAdapter
@@ -36,7 +33,10 @@ class ListActivity : AppCompatActivity() {
         presenter.findPokemons()
 
         adapter.setOnItemClickListener { item, view ->
+            val pokemon = (item as ItemList).pokemon
             val intent = Intent(this, PokeDescActivity::class.java)
+            intent.putExtra("pokemon", pokemon.name)
+            intent.putExtra("url", pokemon.url)
             startActivity(intent)
         }
     }

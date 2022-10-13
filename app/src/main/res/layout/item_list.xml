@@ -7,7 +7,7 @@
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:background="@color/purple_200"
+    android:background="@color/red_200"
     tools:showIn="@layout/activity_list">
 
     <TextView
@@ -15,6 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
+        style="@style/TextAppearance.MaterialComponents.Button"
         android:gravity="center" />
 
 </LinearLayout>
