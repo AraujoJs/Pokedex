@@ -1,14 +1,16 @@
 package co.araujoarthur.pokedex.view
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.CpuUsageInfo
 import android.view.View
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
+import androidx.core.view.marginEnd
 import co.araujoarthur.pokedex.R
 import co.araujoarthur.pokedex.model.Pokemon
 import co.araujoarthur.pokedex.presenter.PokeDescPresenter
+import com.squareup.picasso.Picasso
 import org.w3c.dom.Text
 import java.lang.RuntimeException
 
@@ -40,24 +42,45 @@ class PokeDescActivity : AppCompatActivity() {
     fun showStatus(pokemonStatus: Pokemon) {
         pokemonStatus.status?.map {
             when (it.stat?.name) {
-                "hp" -> findViewById<TextView>(R.id.txt_poke_hp).text = getString(R.string.txt_poke_hp, it.baseStatus.toString())
-                "attack" -> findViewById<TextView>(R.id.txt_poke_attack).text = getString(R.string.txt_poke_attack, it.baseStatus.toString())
-                "defense" -> findViewById<TextView>(R.id.txt_poke_defense).text = getString(R.string.txt_poke_defense, it.baseStatus.toString())
-                "special-attack" -> findViewById<TextView>(R.id.txt_poke_special_attack).text = getString(R.string.txt_poke_special_attack, it.baseStatus.toString())
+                "hp" -> findViewById<TextView>(R.id.txt_poke_hp).text =
+                    getString(R.string.txt_poke_hp, it.baseStatus.toString())
+                "attack" -> findViewById<TextView>(R.id.txt_poke_attack).text =
+                    getString(R.string.txt_poke_attack, it.baseStatus.toString())
+                "defense" -> findViewById<TextView>(R.id.txt_poke_defense).text =
+                    getString(R.string.txt_poke_defense, it.baseStatus.toString())
+                "special-attack" -> findViewById<TextView>(R.id.txt_poke_special_attack).text =
+                    getString(R.string.txt_poke_special_attack, it.baseStatus.toString())
             }
         }
 
-        findViewById<TextView>(R.id.txt_poke_height).text = getString(R.string.txt_poke_height, (pokemonStatus.height?.div(10.0)).toString())
-        findViewById<TextView>(R.id.txt_poke_weight).text = getString(R.string.txt_poke_weight, (pokemonStatus.weight?.div(10.0)).toString())
+        findViewById<TextView>(R.id.txt_poke_height).text = presenter.getCalcul(pokemonStatus.height)
+        findViewById<TextView>(R.id.txt_poke_weight).text = presenter.getCalcul(pokemonStatus.weight)
 
-        if (pokemonStatus.order != null) {
-            findViewById<TextView>(R.id.txt_poke_name).text = when {
-                pokemonStatus.order < 10 -> getString(R.string.txt_poke_name_format_9, pokemonStatus.name, pokemonStatus.order.toString())
-                pokemonStatus.order < 100 -> getString(R.string.txt_poke_name_format_99, pokemonStatus.name, pokemonStatus.order.toString())
-                else -> getString(R.string.txt_poke_name_format_999, pokemonStatus.name, pokemonStatus.order.toString())
+        findViewById<TextView>(R.id.txt_poke_name).text =
+            presenter.getNameFormated(pokemonStatus.order ?: 0, pokemonStatus.name ?: "None")
+
+
+        val imgFront = findViewById<ImageView>(R.id.img_poke_front)
+        val imgBack = findViewById<ImageView>(R.id.img_poke_back)
+        Picasso.get().load(pokemonStatus.sprites?.frontDefault).into(imgFront)
+        Picasso.get().load(pokemonStatus.sprites?.backDefault).into(imgBack)
+
+        val btnType1 = findViewById<Button>(R.id.btn_poke_type)
+        val btnType2 = findViewById<Button>(R.id.btn_poke_type2)
+
+        if (pokemonStatus.types != null) {
+            if (pokemonStatus.types.size > 1) {
+                btnType1.text = pokemonStatus.types[0].type?.name
+                btnType2.text = pokemonStatus.types[1].type?.name
+                btnType1.setBackgroundColor(presenter.getTypeColors(pokemonStatus.types[0]))
+                btnType2.setBackgroundColor(presenter.getTypeColors(pokemonStatus.types[1]))
+            }else {
+            btnType1.text = pokemonStatus.types[0].type?.name
+            btnType2.visibility = View.GONE
+
+            btnType1.setBackgroundColor(presenter.getTypeColors(pokemonStatus.types[0]))
             }
         }
-
     }
     fun showFailure(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
