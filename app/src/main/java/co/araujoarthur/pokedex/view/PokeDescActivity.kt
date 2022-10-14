@@ -1,18 +1,13 @@
 package co.araujoarthur.pokedex.view
 
-import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.CpuUsageInfo
 import android.view.View
 import android.widget.*
-import androidx.core.view.marginEnd
+import androidx.appcompat.app.AppCompatActivity
 import co.araujoarthur.pokedex.R
 import co.araujoarthur.pokedex.model.Pokemon
 import co.araujoarthur.pokedex.presenter.PokeDescPresenter
 import com.squareup.picasso.Picasso
-import org.w3c.dom.Text
-import java.lang.RuntimeException
 
 class PokeDescActivity : AppCompatActivity() {
 
