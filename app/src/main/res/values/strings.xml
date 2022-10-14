@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">Pokedex</string>
+    <string name="txt_poke_name_format_9">%1$s #00%2$s</string>
+    <string name="txt_poke_name_format_99">%1$s #0%2$s</string>
+    <string name="txt_poke_name_format_999">%1$s #%2$s</string>
     <string name="txt_poke_hp">Hp: %1$s</string>
     <string name="txt_poke_attack">attack: %1$s</string>
     <string name="txt_poke_defense">defense: %1$s</string>
-    <string name="txt_poke_special_attack">special attack: %1$s</string>
+    <string name="txt_poke_special_attack">Special Attack: %1$s</string>
+    <string name="txt_poke_height">Height: %1$s (m)</string>
+    <string name="txt_poke_weight">Weight: %1$s (kgs)</string>
 </resources>

@@ -35,7 +35,6 @@ class ListActivity : AppCompatActivity() {
         adapter.setOnItemClickListener { item, view ->
             val pokemon = (item as ItemList).pokemon
             val intent = Intent(this, PokeDescActivity::class.java)
-            intent.putExtra("pokemon", pokemon.name)
             intent.putExtra("url", pokemon.url)
             startActivity(intent)
         }

@@ -9,14 +9,11 @@ import android.widget.Toast
 import co.araujoarthur.pokedex.R
 import co.araujoarthur.pokedex.model.Pokemon
 import co.araujoarthur.pokedex.presenter.PokeDescPresenter
+import org.w3c.dom.Text
 import java.lang.RuntimeException
 
 class PokeDescActivity : AppCompatActivity() {
 
-    lateinit var pokemonHp: TextView
-    lateinit var pokemonAttack: TextView
-    lateinit var pokemonDefense: TextView
-    lateinit var pokemonSpecialAttack: TextView
     lateinit var progress: ProgressBar
     lateinit var presenter: PokeDescPresenter
 
@@ -24,14 +21,10 @@ class PokeDescActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_poke_desc)
-        val pokemon = intent?.extras?.getString("pokemon")
         val url = intent?.extras?.getString("url")
 
-        findViewById<TextView>(R.id.txt_poke_name).text = pokemon
-        pokemonHp = findViewById(R.id.txt_poke_hp)
-        pokemonAttack = findViewById(R.id.txt_poke_attack)
-        pokemonDefense = findViewById(R.id.txt_poke_defense)
-        pokemonSpecialAttack = findViewById(R.id.txt_poke_special_attack)
+
+
         progress = findViewById(R.id.progress_poke_desc)
 
         if (url != null) {
@@ -47,12 +40,24 @@ class PokeDescActivity : AppCompatActivity() {
     fun showStatus(pokemonStatus: Pokemon) {
         pokemonStatus.status?.map {
             when (it.stat?.name) {
-                "hp" -> pokemonHp.text = getString(R.string.txt_poke_hp, it.baseStatus.toString())
-                "attack" -> pokemonAttack.text = getString(R.string.txt_poke_attack, it.baseStatus.toString())
-                "defense" -> pokemonDefense.text = getString(R.string.txt_poke_defense, it.baseStatus.toString())
-                "special-attack" -> pokemonSpecialAttack.text = getString(R.string.txt_poke_special_attack, it.baseStatus.toString())
+                "hp" -> findViewById<TextView>(R.id.txt_poke_hp).text = getString(R.string.txt_poke_hp, it.baseStatus.toString())
+                "attack" -> findViewById<TextView>(R.id.txt_poke_attack).text = getString(R.string.txt_poke_attack, it.baseStatus.toString())
+                "defense" -> findViewById<TextView>(R.id.txt_poke_defense).text = getString(R.string.txt_poke_defense, it.baseStatus.toString())
+                "special-attack" -> findViewById<TextView>(R.id.txt_poke_special_attack).text = getString(R.string.txt_poke_special_attack, it.baseStatus.toString())
             }
         }
+
+        findViewById<TextView>(R.id.txt_poke_height).text = getString(R.string.txt_poke_height, (pokemonStatus.height?.div(10.0)).toString())
+        findViewById<TextView>(R.id.txt_poke_weight).text = getString(R.string.txt_poke_weight, (pokemonStatus.weight?.div(10.0)).toString())
+
+        if (pokemonStatus.order != null) {
+            findViewById<TextView>(R.id.txt_poke_name).text = when {
+                pokemonStatus.order < 10 -> getString(R.string.txt_poke_name_format_9, pokemonStatus.name, pokemonStatus.order.toString())
+                pokemonStatus.order < 100 -> getString(R.string.txt_poke_name_format_99, pokemonStatus.name, pokemonStatus.order.toString())
+                else -> getString(R.string.txt_poke_name_format_999, pokemonStatus.name, pokemonStatus.order.toString())
+            }
+        }
+
     }
     fun showFailure(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
