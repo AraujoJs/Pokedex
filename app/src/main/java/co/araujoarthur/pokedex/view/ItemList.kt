@@ -1,12 +1,8 @@
 package co.araujoarthur.pokedex.view
 
-import android.content.Intent
-import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import android.widget.Toast
 import co.araujoarthur.pokedex.R
-import co.araujoarthur.pokedex.model.PokeItem
 import co.araujoarthur.pokedex.model.Pokemon
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Item

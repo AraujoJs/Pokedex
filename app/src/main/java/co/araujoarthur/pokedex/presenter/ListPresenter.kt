@@ -2,7 +2,7 @@ package co.araujoarthur.pokedex.presenter
 
 import co.araujoarthur.pokedex.data.ListCallback
 import co.araujoarthur.pokedex.data.ListResourceDatabase
-import co.araujoarthur.pokedex.model.PokeItem
+import co.araujoarthur.pokedex.model.ListItem
 import co.araujoarthur.pokedex.view.ListActivity
 
 class ListPresenter(
@@ -15,8 +15,8 @@ class ListPresenter(
 
     }
 
-    override fun onSuccess(pokeItems: PokeItem) {
-        view.showPokemons(pokeItems.result)
+    override fun onSuccess(listItems: ListItem) {
+        view.showPokemons(listItems.result)
     }
 
     override fun onError(message: String) {

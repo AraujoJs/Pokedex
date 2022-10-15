@@ -65,15 +65,22 @@ class PokeDescActivity : AppCompatActivity() {
 
         if (pokemonStatus.types != null) {
             if (pokemonStatus.types.size > 1) {
-                btnType1.text = pokemonStatus.types[0].type?.name
-                btnType2.text = pokemonStatus.types[1].type?.name
-                btnType1.setBackgroundColor(presenter.getTypeColors(pokemonStatus.types[0]))
-                btnType2.setBackgroundColor(presenter.getTypeColors(pokemonStatus.types[1]))
+                btnType1.apply {
+                    text = pokemonStatus.types[0].type?.name
+                    visibility = View.VISIBLE
+                    setBackgroundColor(presenter.getTypeColors(pokemonStatus.types[0]))
+                }
+                btnType2.apply {
+                    text = pokemonStatus.types[1].type?.name
+                    visibility = View.VISIBLE
+                    setBackgroundColor(presenter.getTypeColors(pokemonStatus.types[1]))
+                }
             }else {
-            btnType1.text = pokemonStatus.types[0].type?.name
-            btnType2.visibility = View.GONE
-
-            btnType1.setBackgroundColor(presenter.getTypeColors(pokemonStatus.types[0]))
+                btnType1.apply {
+                    text = pokemonStatus.types[0].type?.name
+                    visibility = View.VISIBLE
+                    setBackgroundColor(presenter.getTypeColors(pokemonStatus.types[0]))
+                }
             }
         }
     }
