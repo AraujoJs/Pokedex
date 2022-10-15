@@ -6,12 +6,16 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.araujoarthur.pokedex.R
 import co.araujoarthur.pokedex.model.Pokemon
 import co.araujoarthur.pokedex.presenter.ListPresenter
 import com.xwray.groupie.GroupieAdapter
+import com.xwray.groupie.GroupieViewHolder
+import com.xwray.groupie.Item
 
 class ListActivity : AppCompatActivity() {
 
@@ -26,9 +30,14 @@ class ListActivity : AppCompatActivity() {
         presenter = ListPresenter(this)
 
         val recycle = findViewById<RecyclerView>(R.id.rv_list)
-
         recycle.layoutManager = LinearLayoutManager(this)
         recycle.adapter = adapter
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar_list)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         presenter.findPokemons()
 
@@ -38,7 +47,11 @@ class ListActivity : AppCompatActivity() {
             intent.putExtra("url", pokemon.url)
             startActivity(intent)
         }
+
+
+
     }
+
 
     fun showPokemons(pokeItems: List<Pokemon>) {
         val pokemons = pokeItems.map { ItemList(it) }

@@ -55,6 +55,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.58"
         tools:backgroundTint="@android:color/holo_green_dark"
+        android:visibility="gone"
+        tools:visibility="visible"
         tools:text="poison" />
 
     <Button
@@ -64,6 +66,8 @@
         android:textColor="@color/text_color"
         android:textSize="11sp"
         android:textStyle="bold"
+        android:visibility="gone"
+        tools:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.8"

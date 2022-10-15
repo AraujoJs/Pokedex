@@ -1,6 +1,6 @@
 package co.araujoarthur.pokedex.data
 
-import co.araujoarthur.pokedex.model.PokeItem
+import co.araujoarthur.pokedex.model.ListItem
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -12,10 +12,10 @@ class ListResourceDatabase {
         HTTPClient.retrofit()
             .create(PokeAPI::class.java)
             .findPokemons()
-            .enqueue(object : Callback<PokeItem> {
+            .enqueue(object : Callback<ListItem> {
                 override fun onResponse(
-                    call: Call<PokeItem>,
-                    response: Response<PokeItem>
+                    call: Call<ListItem>,
+                    response: Response<ListItem>
                 ) {
                     if (response.isSuccessful) {
                         val pokemons = response.body()
@@ -27,7 +27,7 @@ class ListResourceDatabase {
                     callback.onComplete()
                 }
 
-                override fun onFailure(call: Call<PokeItem>, t: Throwable) {
+                override fun onFailure(call: Call<ListItem>, t: Throwable) {
                     callback.onError(t.message.toString())
                     callback.onComplete()
                 }
